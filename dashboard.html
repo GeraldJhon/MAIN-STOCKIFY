@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - CITEMIS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/dashboard.css" />
+  </head>
+  <body>
+    <nav>
+      <ul class="navbar">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.php" class="active">HOME</a></li>
+          <li><a href="pages/add-items.php">ADD ITEMS</a></li>
+          <li><a href="pages/update.php">UPDATE</a></li>
+          <li><a href="pages/logout.php" class="logout">LOGOUT</a></li>
+        </ul>
+      </ul>
+    </nav>
+
+    <section class="container">
+      <section class="welcome-section">
+        <h1>Welcome "User"!</h1>
+        <p>Manage your inventory efficiently with CITEMIS Dashboard</p>
+
+        <div class="table-container">
+          <div class="table-header">
+            <h2>Inventory Items</h2>
+            <div class="search-box">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search items..."
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="items-table" id="itemsTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Item Name</th>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><?php echo htmlspecialchars($item['id']); ?></td>
+                  <td><?php echo htmlspecialchars($item['item_name']); ?></td>
+                  <td><?php echo htmlspecialchars($item['category']); ?></td>
+                  <td><?php echo htmlspecialchars($item['quantity']); ?></td>
+
+                  <td>
+                    <div class="action-buttons">
+                      <a
+                        href="pages/view-item.php?id=<?php echo $item['id']; ?>"
+                        class="btn btn-view"
+                        >View</a
+                      >
+                      <a
+                        href="pages/edit-item.php?id=<?php echo $item['id']; ?>"
+                        class="btn btn-edit"
+                        >Edit</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <?php else: ?>
+            <div class="empty-state">
+              <h3>No items found</h3>
+              <p>Start by adding items to your inventory</p>
+            </div>
+            <?php endif; ?>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <script>
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const nav = document.querySelector("nav");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.getElementById("navLinks");
+
+        if (
+          !nav.contains(event.target) &&
+          navLinks.classList.contains("active")
+        ) {
+          navLinks.classList.remove("active");
+        }
+      });
+
+      // Search functionality
+      function searchTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        const table = document.getElementById("itemsTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+          let found = false;
+          const td = tr[i].getElementsByTagName("td");
+
+          for (let j = 0; j < td.length; j++) {
+            if (td[j]) {
+              const txtValue = td[j].textContent || td[j].innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+                break;
+              }
+            }
+          }
+
+          tr[i].style.display = found ? "" : "none";
+        }
+      }
+    </script>
+  </body>
+</html>

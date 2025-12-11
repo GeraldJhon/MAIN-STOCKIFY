@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Graduate", cursive;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+nav {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+}
+    /* hello guys */
+nav a {
+    text-decoration: none;
+    color: #667eea;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #764ba2;
+}
+
+.head-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.head-container h1 {
+    font-family: "Cinzel Decorative", cursive;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.head-container h2 {
+    color: #666;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.table-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-container h1 {
+    font-family: "Cinzel Decorative", cursive;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.search-container {
+    margin-bottom: 1.5rem;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #764ba2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+thead {
+    background: #667eea;
+    color: white;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+tbody tr {
+    transition: background-color 0.3s;
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons a {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.action-buttons a:first-child {
+    background: #4caf50;
+    color: white;
+}
+
+.action-buttons a:first-child:hover {
+    background: #45a049;
+}
+
+.action-buttons a:last-child {
+    background: #f44336;
+    color: white;
+}
+
+.action-buttons a:last-child:hover {
+    background: #da190b;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    display: none;
+}

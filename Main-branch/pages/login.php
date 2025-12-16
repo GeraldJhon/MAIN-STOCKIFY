@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include("../DBConnection/dbconnection.php");
+include("../DBConnection/database.php"); // ✅ Same as above
 
 // Debug: Check if connection exists
 if (!isset($connection)) {
@@ -11,7 +11,7 @@ $message = "";
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 } 
 
@@ -41,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['department'] = $user['department'];
                 
-                // Redirect to index.php (in root folder)
-                header("Location: ../index.php");
+                // Redirect to dashboard
+                header("Location: dashboard.php");
                 exit();
             } else {
                 $message = "Invalid email or password.";
@@ -53,7 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     }
 }
-    
 ?>
 
 
@@ -63,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="../assets/css/login-style.css" />
+    <link rel="stylesheet" href="../assests/css/login-style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -141,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <footer class="toggle-text">
           <p>Don't have an account?</p>
-          <a href="register.php"
+          <a href="../pages/register.php"
             ><button class="btn-sign__up">Sign up</button></a
           >
         </footer>

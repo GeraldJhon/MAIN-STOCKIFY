@@ -1,3 +1,17 @@
+<?php 
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Get user data from session
+$fullname = $_SESSION['fullname'];
+$email = $_SESSION['email'];
+$department = $_SESSION['department'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +19,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  <link rel="stylesheet" href="../assests/css/dashboard-style.css" />
   <link rel="shortcut icon" href="./assets/img/LOGO.png" type="image/x-icon" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,16 +32,15 @@
   <!-- Main Navigation -->
   <nav class="main-navigation">
     <ul class="navigation-list">
-      <li class="navigation-item"><a href="./dashboard-main.html" class="navigation-link">HOME</a></li>
+      <li class="navigation-item"><a href="./dashboard.php" class="navigation-link">HOME</a></li>
       <li class="navigation-item"><a href="#" class="navigation-link" id="js-add-items-trigger">ADD ITEMS</a></li>
-      <li class="navigation-item"><a href="../pages/login.php" class="navigation-link" id="js-logout-trigger">LOGOUT</a>
-      </li>
+      <li class="navigation-item"><a href="logout.php" class="navigation-link" id="js-logout-trigger">LOGOUT</a></li>
     </ul>
   </nav>
 
   <!-- Dashboard Header -->
   <header class="dashboard-header">
-    <h1 class="dashboard-title">Welcome "Admin"!</h1>
+    <h1 class="dashboard-title">Welcome "<?php echo htmlspecialchars($fullname); ?>"!</h1>
     <h2 class="dashboard-subtitle">Manage your inventory efficiently with CITEMIS dashboard</h2>
   </header>
 

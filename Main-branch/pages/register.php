@@ -1,5 +1,6 @@
-<!---<?php
-include("../DBConnection/dbconnection.php");
+<?php
+session_start(); // Add this at the very top
+include("../DBConnection/database.php");
 
 // Debug: Check if connection exists
 if (!isset($connection)) {
@@ -10,33 +11,53 @@ $message = "";
 
 // when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullname   = $_POST["fullname"];
-    $email      = $_POST["email"];
+    $fullname   = trim($_POST["fullname"]);
+    $email      = trim($_POST["email"]);
     $password   = $_POST["password"];
     $confirm    = $_POST["confirm-password"];
-    $department = $_POST["department"];
     
+    // Validate input
+    if (empty($fullname) || empty($email) || empty($password) || empty($confirm)) {
+        $message = "Please fill in all fields.";
+    } 
     // Check if passwords match
-    if ($password !== $confirm) {
+    elseif ($password !== $confirm) {
         $message = "Passwords do not match!";
-    } else {
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    } 
+    else {
+        // Check if email already exists
+        $check_stmt = $connection->prepare("SELECT id FROM users WHERE email = ?");
+        $check_stmt->bind_param("s", $email);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
         
-        // Use prepared statements to prevent SQL injection
-        $stmt = $connection->prepare("INSERT INTO users (fullName, email, password, department) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $fullname, $email, $hashed_password, $department);
-        
-        if ($stmt->execute()) {
-            $message = "Registration successful!";
+        if ($check_result->num_rows > 0) {
+            $message = "Email already registered!";
         } else {
-            $message = "Error: " . $connection->error;
+            // Hash the password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Note: You're using $department but it's not in your form
+            // Set a default value or add department field to form
+            $department = "General"; // Default value
+            
+            // Use prepared statements to prevent SQL injection
+            $stmt = $connection->prepare("INSERT INTO users (fullName, email, password, department) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $fullname, $email, $hashed_password, $department);
+            
+            if ($stmt->execute()) {
+                $message = "Registration successful! Redirecting to login...";
+                // Redirect to login page after 2 seconds
+                header("refresh:2;url=login.php");
+            } else {
+                $message = "Error: " . $connection->error;
+            }
+            $stmt->close();
         }
-        $stmt->close();
+        $check_stmt->close();
     }
 }
 ?>
------>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,19 +66,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Form</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/register-style.css">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="../assests/css/register-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="container">
- <section id="register-form"  aria-labelledby="register-heading">
-  
+    <section id="register-form" aria-labelledby="register-heading">
       <header>
         <h1>Register</h1>
       </header>
+
+      <?php if (!empty($message)): ?>
+        <div class="error-message" style="padding: 10px; margin-bottom: 15px; 
+             background-color:  <?php echo (strpos($message, 'successful') !== false) ? '#d4edda' : '#f8d7da'; ?>; 
+             color: <?php echo (strpos($message, 'successful') !== false) ? '#155724' : '#721c24'; ?>; 
+             border: 1px solid <?php echo (strpos($message, 'successful') !== false) ? '#c3e6cb' : '#f5c6cb'; ?>; 
+             border-radius: 4px; text-align: center;">
+          <?php echo htmlspecialchars($message); ?>
+        </div>
+      <?php endif; ?>
 
       <form action="" method="POST">
         <fieldset>
@@ -69,15 +99,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="reg-email">Email:</label>
-              <input type="email" id="reg-email" name="email" required  placeholder="Enter Your Email"> 
+              <input type="email" id="reg-email" name="email" required placeholder="Enter Your Email"> 
             </div>
             <div class="form-group">
               <label for="reg-password">Password:</label>
-              <input type="password" id="reg-password" name="password" required  placeholder="Enter Your Password">
+              <input type="password" id="reg-password" name="password" required placeholder="Enter Your Password">
             </div>
             <div class="form-group">
               <label for="reg-confirm">Confirm Password:</label>
-              <input type="password" id="reg-confirm" name="confirm-password" required  placeholder="Re-Enter Your Password">
+              <input type="password" id="reg-confirm" name="confirm-password" required placeholder="Re-Enter Your Password">
             </div>
           </div>
           <button type="submit" class="btn">Sign Up</button>

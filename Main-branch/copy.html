@@ -1,305 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CITEMIS Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap"
-      rel="stylesheet"
-    />
-    <!---Need to separate this style-->
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Scrollable Table Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Electrolize&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/index-style.css">
+</head>
 
-      body {
-        font-family: "Graduate", cursive;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 20px;
-      }
+<body>
+  <nav class="main-navigation">
+    <ul class="navigation-list">
+      <li class="navigation-item"><a href="#" class="navigation-link">HOME</a></li>
+      <li class="navigation-item"><a href="#" class="navigation-link">ADD ITEMS</a></li>
+      <li class="navigation-item"><a href="#" class="navigation-link" id="js-logout-trigger">LOGOUT</a></li>
+    </ul>
+  </nav>
 
-      nav {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
+  <header class="dashboard-header">
+    <h1 class="dashboard-title">Welcome "Admin"!</h1>
+    <h2 class="dashboard-subtitle">Manage your inventory efficiently with CITEMIS dashboard</h2>
+  </header>
 
-      nav ul {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-        justify-content: flex-end;
-      }
-      /* hello guys */
-      nav a {
-        text-decoration: none;
-        color: #667eea;
-        font-weight: bold;
-        transition: color 0.3s;
-      }
+  <section class="inventory-section">
+    <div class="inventory-header">
+      <h1 class="inventory-title">INVENTORY ITEMS</h1>
+      <input type="text" id="inventory-search" class="search-input" placeholder="Search Items..." />
+    </div>
 
-      nav a:hover {
-        color: #764ba2;
-      }
-
-      .head-container {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 2rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .head-container h1 {
-        font-family: "Cinzel Decorative", cursive;
-        color: #667eea;
-        margin-bottom: 0.5rem;
-      }
-
-      .head-container h2 {
-        color: #666;
-        font-size: 1.2rem;
-        font-weight: normal;
-      }
-
-      .table-container {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .table-container h1 {
-        font-family: "Cinzel Decorative", cursive;
-        color: #667eea;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-
-      .search-container {
-        margin-bottom: 1.5rem;
-      }
-
-      #searchInput:focus {
-        outline: none;
-        border-color: #764ba2;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-      }
-
-      thead {
-        background: #667eea;
-        color: white;
-      }
-
-      th,
-      td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-      }
-
-      th {
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-      }
-
-      tbody tr {
-        transition: background-color 0.3s;
-      }
-
-      tbody tr:hover {
-        background-color: #f5f5f5;
-      }
-
-      .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-      }
-
-      .action-buttons a {
-        padding: 0.5rem 1rem;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        transition: all 0.3s;
-      }
-
-      .action-buttons a:first-child {
-        background: #4caf50;
-        color: white;
-      }
-
-      .action-buttons a:first-child:hover {
-        background: #45a049;
-      }
-
-      .action-buttons a:last-child {
-        background: #f44336;
-        color: white;
-      }
-
-      .action-buttons a:last-child:hover {
-        background: #da190b;
-      }
-
-      .no-results {
-        text-align: center;
-        padding: 2rem;
-        color: #666;
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <nav>
-      <ul>
-        <li><a href="#">HOME</a></li>
-        <li><a href="#">LOGOUT</a></li>
-      </ul>
-    </nav>
-
-    <header class="head-container">
-      <h1>Welcome "User"!</h1>
-      <h2>Manage your inventory efficiently with CITEMIS dashboard</h2>
-    </header>
-
-    <section class="table-container">
-      <h1>INVENTORY ITEMS</h1>
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search Items...." />
-      </div>
-
-      <table id="inventoryTable">
-        <thead>
+    <div class="table-wrapper">
+      <table class="inventory-table">
+        <thead class="inventory-table-head">
           <tr>
-            <th>Item #</th>
-            <th>Item Name</th>
-            <th>Description</th>
-            <th>Item Qty</th>
-            <th>Actions</th>
+            <th>MIS#</th>
+            <th>ITEM NAME</th>
+            <th>DESCRIPTION</th>
+            <th>ITEM QTY</th>
+            <th>ACTIONS</th>
           </tr>
         </thead>
-        <tbody id="tableBody">
-          <tr>
-            <td>001</td>
-            <td>Laptop</td>
-            <td>Dell XPS 15 - High Performance</td>
-            <td>25</td>
-            <td>
-              <div class="action-buttons">
-                <a href="#" onclick="updateItem(1); return false;">UPDATE</a>
-                <a href="#" onclick="deleteItem(1); return false;">DELETE</a>
-              </div>
+        <tbody class="inventory-table-body">
+          <tr class="inventory-row">
+            <td class="inventory-cell">0093213</td>
+            <td class="inventory-cell inventory-cell--name">LAPTOP</td>
+            <td class="inventory-cell">MSI Titan-18-HX-Dragon-Edition-Norse-Myth-A2XWX</td>
+            <td class="inventory-cell">10 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
             </td>
           </tr>
-          <tr>
-            <td>002</td>
-            <td>Mouse</td>
-            <td>Logitech Wireless Mouse</td>
-            <td>150</td>
-            <td>
-              <div class="action-buttons">
-                <a href="#" onclick="updateItem(2); return false;">UPDATE</a>
-                <a href="#" onclick="deleteItem(2); return false;">DELETE</a>
-              </div>
+          <tr class="inventory-row">
+            <td class="inventory-cell">0213312</td>
+            <td class="inventory-cell inventory-cell--name">FLASH DRIVE</td>
+            <td class="inventory-cell">SANDISK 256GB ULTRA FLAIR USB3.0 Flash Drive (Black)</td>
+            <td class="inventory-cell">5 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
             </td>
           </tr>
-          <tr>
-            <td>003</td>
-            <td>Keyboard</td>
-            <td>Mechanical RGB Keyboard</td>
-            <td>80</td>
-            <td>
-              <div class="action-buttons">
-                <a href="#" onclick="updateItem(3); return false;">UPDATE</a>
-                <a href="#" onclick="deleteItem(3); return false;">DELETE</a>
-              </div>
+          <tr class="inventory-row">
+            <td class="inventory-cell">321312</td>
+            <td class="inventory-cell inventory-cell--name">LAPTOP</td>
+            <td class="inventory-cell">ASUS TUF FX505</td>
+            <td class="inventory-cell">3 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
             </td>
           </tr>
-          <tr>
-            <td>004</td>
-            <td>Monitor</td>
-            <td>27" 4K UHD Display</td>
-            <td>45</td>
-            <td>
-              <div class="action-buttons">
-                <a href="#" onclick="updateItem(4); return false;">UPDATE</a>
-                <a href="#" onclick="deleteItem(4); return false;">DELETE</a>
-              </div>
+          <tr class="inventory-row">
+            <td class="inventory-cell">432145</td>
+            <td class="inventory-cell inventory-cell--name">MONITOR</td>
+            <td class="inventory-cell">Dell UltraSharp 27" 4K Monitor U2723DE</td>
+            <td class="inventory-cell">15 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
             </td>
           </tr>
-          <tr>
-            <td>005</td>
-            <td>Headphones</td>
-            <td>Noise Cancelling Wireless</td>
-            <td>120</td>
-            <td>
-              <div class="action-buttons">
-                <a href="#" onclick="updateItem(5); return false;">UPDATE</a>
-                <a href="#" onclick="deleteItem(5); return false;">DELETE</a>
-              </div>
+          <tr class="inventory-row">
+            <td class="inventory-cell">543267</td>
+            <td class="inventory-cell inventory-cell--name">KEYBOARD</td>
+            <td class="inventory-cell">Logitech MX Mechanical Wireless Keyboard</td>
+            <td class="inventory-cell">20 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">654389</td>
+            <td class="inventory-cell inventory-cell--name">MOUSE</td>
+            <td class="inventory-cell">Logitech MX Master 3S Wireless Mouse</td>
+            <td class="inventory-cell">25 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">765401</td>
+            <td class="inventory-cell inventory-cell--name">WEBCAM</td>
+            <td class="inventory-cell">Logitech Brio 4K Ultra HD Webcam</td>
+            <td class="inventory-cell">8 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">876523</td>
+            <td class="inventory-cell inventory-cell--name">HEADSET</td>
+            <td class="inventory-cell">Sony WH-1000XM5 Wireless Noise-Canceling Headphones</td>
+            <td class="inventory-cell">12 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">987645</td>
+            <td class="inventory-cell inventory-cell--name">ROUTER</td>
+            <td class="inventory-cell">TP-Link AX6000 WiFi 6 Router Archer AX80</td>
+            <td class="inventory-cell">6 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">098767</td>
+            <td class="inventory-cell inventory-cell--name">PRINTER</td>
+            <td class="inventory-cell">HP LaserJet Pro MFP M428fdw Multifunction Printer</td>
+            <td class="inventory-cell">4 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">109876</td>
+            <td class="inventory-cell inventory-cell--name">SCANNER</td>
+            <td class="inventory-cell">Epson WorkForce ES-500W Wireless Document Scanner</td>
+            <td class="inventory-cell">7 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">210987</td>
+            <td class="inventory-cell inventory-cell--name">PROJECTOR</td>
+            <td class="inventory-cell">Epson PowerLite 2250U Full HD Projector</td>
+            <td class="inventory-cell">3 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">321098</td>
+            <td class="inventory-cell inventory-cell--name">TABLET</td>
+            <td class="inventory-cell">iPad Pro 12.9" M2 Chip 256GB WiFi</td>
+            <td class="inventory-cell">9 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">432109</td>
+            <td class="inventory-cell inventory-cell--name">CABLE</td>
+            <td class="inventory-cell">USB-C to HDMI Cable 6ft 4K@60Hz</td>
+            <td class="inventory-cell">50 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
+            </td>
+          </tr>
+          <tr class="inventory-row">
+            <td class="inventory-cell">543210</td>
+            <td class="inventory-cell inventory-cell--name">EXTERNAL HDD</td>
+            <td class="inventory-cell">Seagate Backup Plus 5TB USB 3.0 External Hard Drive</td>
+            <td class="inventory-cell">11 pcs</td>
+            <td class="inventory-cell inventory-cell--actions">
+              <button class="button button--action">Update</button>
+              <button class="button button--danger">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="no-results" id="noResults">
-        No items found matching your search.
-      </div>
-    </section>
+    </div>
+    <p class="scroll-indicator">⬆️ Scroll up to see more items ⬆️</p>
+  </section>
+</body>
 
-    <script>
-      // Search functionality
-      const searchInput = document.getElementById("searchInput");
-      const tableBody = document.getElementById("tableBody");
-      const noResults = document.getElementById("noResults");
-
-      searchInput.addEventListener("input", function () {
-        const searchTerm = this.value.toLowerCase();
-        const rows = tableBody.getElementsByTagName("tr");
-        let visibleCount = 0;
-
-        for (let row of rows) {
-          const text = row.textContent.toLowerCase();
-          if (text.includes(searchTerm)) {
-            row.style.display = "";
-            visibleCount++;
-          } else {
-            row.style.display = "none";
-          }
-        }
-
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-      });
-
-      // Placeholder functions for update and delete
-      function updateItem(id) {
-        alert(
-          "Update functionality for item #" + id + " would be implemented here"
-        );
-      }
-
-      function deleteItem(id) {
-        if (confirm("Are you sure you want to delete item #" + id + "?")) {
-          alert("Delete functionality would be implemented here");
-        }
-      }
-    </script>
-  </body>
 </html>

@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "citemis"; // Change this to your actual database name
+$dbname = "citemis";
 
 // Create connection
 $connection = new mysqli($servername, $username, $password, $dbname);
@@ -11,4 +11,7 @@ $connection = new mysqli($servername, $username, $password, $dbname);
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
+
+// Set charset to prevent SQL injection
+$connection->set_charset("utf8mb4");
 ?>

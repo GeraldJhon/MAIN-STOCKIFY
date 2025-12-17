@@ -55,38 +55,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="../assests/css/login-style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <div class="Header">
-      <h1>"Welcome to Stockify"</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../assests/css/login-style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="header">
+      <h1 class="logo">CITEMIS</h1>
+      <p class="subtitle">Inventory Management System</p>
     </div>
 
-    <div class="container">
-      <!-- Login Form -->
-      <section id="login-form" aria-labelledby="login-heading">
-        <header>
-          <h1 id="login-heading">LOGIN</h1>
-        </header>
+    <div class="login-card">
+      <h2 class="login-title">Login</h2>
 
-        <?php if (!empty($message)): ?>
-        <div
-          class="error-message"
-          style="
+
+      <?php if (!empty($message)): ?>
+      <div class="error-message" style="
             padding: 10px;
             margin-bottom: 15px;
             background-color: #f8d7da;
@@ -94,59 +90,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: 1px solid #f5c6cb;
             border-radius: 4px;
             text-align: center;
-          "
-        >
-          <?php echo htmlspecialchars($message); ?>
-        </div>
-        <?php endif; ?>
+          ">
+        <?php echo htmlspecialchars($message); ?>
+      </div>
+      <?php endif; ?>
 
-        <form action="" method="POST" role="form" aria-label="Login form">
-          <fieldset>
-            <legend class="visually-hidden">Login credentials</legend>
+      <form action="" method="POST" role="form" aria-label="Login form">
+        <fieldset>
+          <legend class="visually-hidden">Login credentials</legend>
 
-            <div class="form-group">
-              <label for="login-email">email:</label>
-              <input
-                type="email"
-                id="login-email"
-                name="email"
-                required
-                aria-describedby="email-help"
-                placeholder="Enter Your Username"
-              />
-            </div>
+          <div class="form-group">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" name="email" required aria-describedby="email-help"
+              placeholder="Enter your email" />
+          </div>
 
-            <div class="form-group">
-              <label for="login-password">Password:</label>
-              <input
-                type="password"
-                id="login-password"
-                name="password"
-                required
-                placeholder="Enter Your Password"
-              />
-            </div>
+          <div class="form-group">
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
+          </div>
 
-            <div class="checkbox-group">
-              <input type="checkbox" id="remember" name="remember" />
-              <label for="remember">Remember password</label>
-            </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="remember" name="remember" />
+            <label for="remember">Remember me</label>
+          </div>
 
-            <button type="submit" class="btn" aria-describedby="login-help">
-              Login
-            </button>
-          </fieldset>
-        </form>
+          <button type="submit" class="btn" aria-describedby="login-help">
+            Login
+          </button>
+        </fieldset>
+      </form>
 
-        <footer class="toggle-text">
-          <p>Don't have an account?</p>
-          <a href="../pages/register.php"
-            ><button class="btn-sign__up">Sign up</button></a
-          >
-        </footer>
-      </section>
+      <footer class="toggle-footer">
+        <p>Don't have an account?</p>
+        <a href="../pages/register.php" class="btn-signup">Sign up</a>
+      </footer>
     </div>
+  </div>
 
-    <script src="../assets/js/script.js"></script>
-  </body>
+  <script src="../assets/js/script.js"></script>
+</body>
 </html>

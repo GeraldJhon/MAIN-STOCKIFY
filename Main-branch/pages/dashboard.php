@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="../assests/css/fanalize-style.css">k
+  <link rel="stylesheet" href="../assests/css/dashboard-style.css"> 
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -12,7 +12,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
+<div class="sidebar-header"> 
             <div class="sidebar-logo"><img src="../assests/logo/logo-Recovered copy.jpg" alt="This is logo"width="200px"></div>
             <div class="sidebar-subtitle">Inventory Management</div>
         </div>
@@ -24,25 +24,25 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
                         <a href="#" class="sidebar-menu-link active">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0084ff"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Dashboard.svg" alt="Dashboard Icon"></span>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="#" class="sidebar-menu-link" id="sidebar-add-items">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg></span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Add.svg" alt="Add Icon"></span>
                             <span>Add Items</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="../pages/update-item.php" class="sidebar-menu-link">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#75FB4C"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h357l-80 80H200v560h560v-278l80-80v358q0 33-23.5 56.5T760-120H200Zm280-360ZM360-360v-170l367-367q12-12 27-18t30-6q16 0 30.5 6t26.5 18l56 57q11 12 17 26.5t6 29.5q0 15-5.5 29.5T897-728L530-360H360Zm481-424-56-56 56 56ZM440-440h56l232-232-28-28-29-28-231 231v57Zm260-260-29-28 29 28 28 28-28-28Z"/></svg></span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Update.svg" alt="Update Icon"></span>
                             <span>Update</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="../pages/delete-item.php" class="sidebar-menu-link">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/></svg></span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Delete.svg" alt="Delete Icon"></span>
                             <span>Delete</span>
                         </a>
                     </li>
@@ -54,8 +54,8 @@
                 <h3 class="sidebar-section-title">Categories</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#0084ff"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-507h560v-133H200v133Zm0 214h560v-134H200v134Zm0 213h560v-133H200v133Zm40-454v-80h80v80h-80Zm0 214v-80h80v80h-80Zm0 214v-80h80v80h-80Z"/></svg></span>
+                        <a href="../pages/all-item.php" class="sidebar-menu-link">
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Inventory.svg" alt="All Item Icon"></span>
                             <span>All Items</span>
                         </a>
                     </li>
@@ -68,14 +68,14 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
                         <a href="#" class="sidebar-menu-link">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg> </span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Users.svg" alt="User Icon"></span>
                             <span>Users</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="../pages/logout.php" class="sidebar-menu-link" id="js-logout-trigger">
-                            <span class="sidebar-menu-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ff0000"><path d="M806-440H320v-80h486l-62-62 56-58 160 160-160 160-56-58 62-62ZM600-600v-160H200v560h400v-160h80v160q0 33-23.5 56.5T600-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h400q33 0 56.5 23.5T680-760v160h-80Z"/></svg></span>
-                            <span>Log out</span>
+                            <span class="sidebar-menu-icon"><img src="../assests/icons/Logout.svg" alt="Delete Icon"></span>
+                            <span>Logout</span>
                         </a>
                     </li>
                 </ul>

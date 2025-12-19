@@ -2,205 +2,1326 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Scrollable Table Demo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CITEMIS Dashboard - Inventory Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Electrolize&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/index-style.css">
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00d4ff;
+      --primary-dark: #0099cc;
+      --secondary: #ff3366;
+      --bg-dark: #0a0e27;
+      --bg-card: #151932;
+      --bg-modal: #1a1f3a;
+      --text-light: #e8edf7;
+      --text-muted: #8892b0;
+      --border: #2a3150;
+      --success: #00ff88;
+      --warning: #ffaa00;
+      --danger: #ff3366;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 51, 102, 0.06) 0%, transparent 50%);
+      animation: bgPulse 20s ease-in-out infinite;
+      display: flex;
+    }
+
+    @keyframes bgPulse {
+
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+
+      50% {
+        filter: brightness(1.1);
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(21, 25, 50, 0.95);
+      backdrop-filter: blur(10px);
+      border-right: 2px solid var(--border);
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 1500;
+      animation: slideInLeft 0.6s ease-out;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--bg-card);
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: var(--bg-card);
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+
+    .sidebar-header {
+      padding: 2rem 1.5rem;
+      border-bottom: 2px solid var(--border);
+      text-align: center;
+    }
+
+    .sidebar-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .sidebar-nav {
+      padding: 1.5rem 0;
+    }
+
+    .sidebar-section {
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-section-title {
+      padding: 0 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu-item {
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-menu-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .sidebar-menu-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--primary);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-menu-link:hover,
+    .sidebar-menu-link.active {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-menu-link:hover::before,
+    .sidebar-menu-link.active::before {
+      transform: scaleY(1);
+    }
+
+    .sidebar-menu-icon {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 1.5rem;
+      border-top: 2px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: rgba(0, 212, 255, 0.05);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .sidebar-user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sidebar-user-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Main Content Wrapper */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .main-navigation {
+      background: rgba(21, 25, 50, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .navigation-list {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .navigation-link {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      padding: 0.5rem 1rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navigation-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .navigation-link:hover {
+      color: var(--primary);
+    }
+
+    .navigation-link:hover::before {
+      transform: translateX(0);
+    }
+
+    /* Header */
+    .dashboard-header {
+      text-align: center;
+      padding: 3rem 2rem;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dashboard-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+
+    .dashboard-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-container {
+      background: var(--bg-modal);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-dark);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-light);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+
+    .form-input:read-only {
+      background: rgba(138, 146, 176, 0.1);
+      cursor: not-allowed;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Buttons */
+    .button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .button--primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--bg-dark);
+      flex: 1;
+    }
+
+    .button--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+    }
+
+    .button--secondary {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text-light);
+      flex: 1;
+    }
+
+    .button--secondary:hover {
+      background: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+
+    .button--action {
+      background: var(--primary);
+      color: var(--bg-dark);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .button--action:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .button--danger {
+      background: var(--danger);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .button--danger:hover {
+      background: #cc0033;
+      transform: translateY(-1px);
+    }
+
+    /* Inventory Section */
+    .inventory-section {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem 4rem;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .inventory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 2rem;
+    }
+
+    .inventory-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--primary);
+    }
+
+    .search-input {
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      color: var(--text-light);
+      font-size: 1rem;
+      width: 300px;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+      width: 350px;
+    }
+
+    /* Table */
+    .table-wrapper {
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      max-height: 600px;
+      position: relative;
+    }
+
+    .table-scroll-container {
+      max-height: 600px;
+      overflow-y: auto;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--bg-dark);
+    }
+
+    .table-scroll-container::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    .table-scroll-container::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    .table-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 5px;
+    }
+
+    .table-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+
+    .table-scroll-container::-webkit-scrollbar-corner {
+      background: var(--bg-dark);
+    }
+
+    .inventory-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--bg-card);
+    }
+
+    .inventory-table-head {
+      background: var(--bg-card);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .inventory-table-head th {
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      border-bottom: 2px solid var(--border);
+      background: var(--bg-card);
+      position: sticky;
+      top: 0;
+    }
+
+    .inventory-row {
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+      animation: slideInRow 0.5s ease-out both;
+      background: var(--bg-card);
+    }
+
+    .inventory-row:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .inventory-row:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .inventory-row:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .inventory-row:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .inventory-row:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    .inventory-row:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+
+    .inventory-row:nth-child(7) {
+      animation-delay: 0.7s;
+    }
+
+    .inventory-row:nth-child(8) {
+      animation-delay: 0.8s;
+    }
+
+    .inventory-row:nth-child(9) {
+      animation-delay: 0.9s;
+    }
+
+    .inventory-row:nth-child(10) {
+      animation-delay: 1s;
+    }
+
+    @keyframes slideInRow {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .inventory-row:hover {
+      background: rgba(0, 212, 255, 0.15);
+      transform: scale(1.01);
+    }
+
+    .inventory-row:last-child {
+      border-bottom: none;
+    }
+
+    .inventory-cell {
+      padding: 1.25rem 1.5rem;
+      color: var(--text-light);
+    }
+
+    .inventory-cell--id {
+      font-family: 'Orbitron', monospace;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .inventory-cell--name {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .inventory-cell--description {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .inventory-cell--quantity {
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .inventory-cell--actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .inventory-empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state-message {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .inventory-table {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 2000;
+        background: var(--primary);
+        color: var(--bg-dark);
+        border: none;
+        padding: 0.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+
+      .dashboard-title {
+        font-size: 2rem;
+      }
+
+      .inventory-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .search-input:focus {
+        width: 100%;
+      }
+
+      .inventory-table-head th,
+      .inventory-cell {
+        padding: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .inventory-cell--actions {
+        flex-direction: column;
+      }
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+    }
+  </style>
 </head>
-<!----New update-->
 
 <body>
-  <nav class="main-navigation">
-    <ul class="navigation-list">
-      <li class="navigation-item"><a href="#" class="navigation-link">HOME</a></li>
-      <li class="navigation-item"><a href="#" class="navigation-link">ADD ITEMS</a></li>
-      <li class="navigation-item"><a href="#" class="navigation-link" id="js-logout-trigger">LOGOUT</a></li>
-    </ul>
-  </nav>
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
 
-  <header class="dashboard-header">
-    <h1 class="dashboard-title">Welcome "Admin"!</h1>
-    <h2 class="dashboard-subtitle">Manage your inventory efficiently with CITEMIS dashboard</h2>
-  </header>
-
-  <section class="inventory-section">
-    <div class="inventory-header">
-      <h1 class="inventory-title">INVENTORY ITEMS</h1>
-      <input type="text" id="inventory-search" class="search-input" placeholder="Search Items..." />
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">CITEMIS</div>
+      <div class="sidebar-subtitle">Inventory Management</div>
     </div>
 
-    <div class="table-wrapper">
-      <table class="inventory-table">
-        <thead class="inventory-table-head">
-          <tr>
-            <th>MIS#</th>
-            <th>ITEM NAME</th>
-            <th>DESCRIPTION</th>
-            <th>ITEM QTY</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody class="inventory-table-body">
-          <tr class="inventory-row">
-            <td class="inventory-cell">0093213</td>
-            <td class="inventory-cell inventory-cell--name">LAPTOP</td>
-            <td class="inventory-cell">MSI Titan-18-HX-Dragon-Edition-Norse-Myth-A2XWX</td>
-            <td class="inventory-cell">10 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">0213312</td>
-            <td class="inventory-cell inventory-cell--name">FLASH DRIVE</td>
-            <td class="inventory-cell">SANDISK 256GB ULTRA FLAIR USB3.0 Flash Drive (Black)</td>
-            <td class="inventory-cell">5 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">321312</td>
-            <td class="inventory-cell inventory-cell--name">LAPTOP</td>
-            <td class="inventory-cell">ASUS TUF FX505</td>
-            <td class="inventory-cell">3 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">432145</td>
-            <td class="inventory-cell inventory-cell--name">MONITOR</td>
-            <td class="inventory-cell">Dell UltraSharp 27" 4K Monitor U2723DE</td>
-            <td class="inventory-cell">15 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">543267</td>
-            <td class="inventory-cell inventory-cell--name">KEYBOARD</td>
-            <td class="inventory-cell">Logitech MX Mechanical Wireless Keyboard</td>
-            <td class="inventory-cell">20 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">654389</td>
-            <td class="inventory-cell inventory-cell--name">MOUSE</td>
-            <td class="inventory-cell">Logitech MX Master 3S Wireless Mouse</td>
-            <td class="inventory-cell">25 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">765401</td>
-            <td class="inventory-cell inventory-cell--name">WEBCAM</td>
-            <td class="inventory-cell">Logitech Brio 4K Ultra HD Webcam</td>
-            <td class="inventory-cell">8 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">876523</td>
-            <td class="inventory-cell inventory-cell--name">HEADSET</td>
-            <td class="inventory-cell">Sony WH-1000XM5 Wireless Noise-Canceling Headphones</td>
-            <td class="inventory-cell">12 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">987645</td>
-            <td class="inventory-cell inventory-cell--name">ROUTER</td>
-            <td class="inventory-cell">TP-Link AX6000 WiFi 6 Router Archer AX80</td>
-            <td class="inventory-cell">6 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">098767</td>
-            <td class="inventory-cell inventory-cell--name">PRINTER</td>
-            <td class="inventory-cell">HP LaserJet Pro MFP M428fdw Multifunction Printer</td>
-            <td class="inventory-cell">4 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">109876</td>
-            <td class="inventory-cell inventory-cell--name">SCANNER</td>
-            <td class="inventory-cell">Epson WorkForce ES-500W Wireless Document Scanner</td>
-            <td class="inventory-cell">7 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">210987</td>
-            <td class="inventory-cell inventory-cell--name">PROJECTOR</td>
-            <td class="inventory-cell">Epson PowerLite 2250U Full HD Projector</td>
-            <td class="inventory-cell">3 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">321098</td>
-            <td class="inventory-cell inventory-cell--name">TABLET</td>
-            <td class="inventory-cell">iPad Pro 12.9" M2 Chip 256GB WiFi</td>
-            <td class="inventory-cell">9 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">432109</td>
-            <td class="inventory-cell inventory-cell--name">CABLE</td>
-            <td class="inventory-cell">USB-C to HDMI Cable 6ft 4K@60Hz</td>
-            <td class="inventory-cell">50 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-          <tr class="inventory-row">
-            <td class="inventory-cell">543210</td>
-            <td class="inventory-cell inventory-cell--name">EXTERNAL HDD</td>
-            <td class="inventory-cell">Seagate Backup Plus 5TB USB 3.0 External Hard Drive</td>
-            <td class="inventory-cell">11 pcs</td>
-            <td class="inventory-cell inventory-cell--actions">
-              <button class="button button--action">Update</button>
-              <button class="button button--danger">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <nav class="sidebar-nav">
+      <!-- Main Menu -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">Main Menu</h3>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link active">
+              <span class="sidebar-menu-icon">🏠</span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link" id="sidebar-add-items">
+              <span class="sidebar-menu-icon">➕</span>
+              <span>Add Items</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">📦</span>
+              <span>Update</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">📊</span>
+              <span>Delete</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">Categories</h3>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">💻</span>
+              <span>Electronics</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">🖨️</span>
+              <span>Office Equipment</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">🪑</span>
+              <span>Furniture</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">📱</span>
+              <span>Accessories</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">🔧</span>
+              <span>Tools</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Management -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">Management</h3>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">👥</span>
+              <span>Users</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              <span class="sidebar-menu-icon">⚙️</span>
+              <span>Log out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">JD</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">John Doe</div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
     </div>
-    <p class="scroll-indicator">⬆️ Scroll up to see more items ⬆️</p>
-  </section>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Main Navigation -->
+    <nav class="main-navigation">
+      <ul class="navigation-list">
+        <li class="navigation-item">
+          <a href="#" class="navigation-link">HOME</a>
+        </li>
+        <li class="navigation-item">
+          <a href="#" class="navigation-link" id="js-add-items-trigger">ADD ITEMS</a>
+        </li>
+        <li class="navigation-item">
+          <a href="#" class="navigation-link" id="js-logout-trigger">LOGOUT</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <h1 class="dashboard-title">Welcome Back!</h1>
+      <h2 class="dashboard-subtitle">Manage your inventory efficiently with CITEMIS dashboard</h2>
+    </header>
+
+    <!-- Add Item Modal -->
+    <section id="add-item-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-container modal-container--add-item">
+        <h2 class="modal-title">What items do you want to add?</h2>
+        <form id="add-item-form" class="item-form">
+          <div class="form-group">
+            <label for="add-item-name" class="form-label">Item Name:</label>
+            <input type="text" id="add-item-name" class="form-input" placeholder="Enter Items" required />
+          </div>
+
+          <div class="form-group">
+            <label for="add-item-description" class="form-label">Description:</label>
+            <input type="text" id="add-item-description" class="form-input" placeholder="Enter Description" required />
+          </div>
+
+          <div class="form-group">
+            <label for="add-item-quantity" class="form-label">Quantity:</label>
+            <input type="number" id="add-item-quantity" class="form-input" placeholder="Enter Quantity" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="button button--primary" id="js-add-item-submit">Add</button>
+            <button type="button" class="button button--secondary" id="js-add-item-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Update Item Modal -->
+    <section id="update-item-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-container modal-container--update-item">
+        <h2 class="modal-title">Update Item Details</h2>
+        <form id="update-item-form" class="item-form">
+          <div class="form-group">
+            <label for="update-item-id" class="form-label">ID:</label>
+            <input type="text" id="update-item-id" class="form-input" placeholder="#:" readonly />
+          </div>
+
+          <div class="form-group">
+            <label for="update-item-name" class="form-label">Item Name:</label>
+            <input type="text" id="update-item-name" class="form-input" placeholder="Update item name:" />
+          </div>
+
+          <div class="form-group">
+            <label for="update-item-description" class="form-label">Description:</label>
+            <input type="text" id="update-item-description" class="form-input" placeholder="Update the description:" />
+          </div>
+
+          <div class="form-group">
+            <label for="update-item-quantity" class="form-label">Qty:</label>
+            <input type="number" id="update-item-quantity" class="form-input" placeholder="Update item quantity:" />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="button button--primary" id="js-update-item-submit">Update</button>
+            <button type="button" class="button button--secondary" id="js-update-item-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Inventory Table Section -->
+    <section class="inventory-section">
+      <div class="inventory-header">
+        <h1 class="inventory-title">INVENTORY ITEMS</h1>
+        <input type="text" id="inventory-search" class="search-input" placeholder="Search Items..." />
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-scroll-container">
+          <table class="inventory-table">
+            <thead class="inventory-table-head">
+              <tr>
+                <th>MIS#</th>
+                <th>ITEM NAME</th>
+                <th>DESCRIPTION</th>
+                <th>ITEM QTY</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody class="inventory-table-body">
+              <tr class="inventory-row" data-item-id="001">
+                <td class="inventory-cell inventory-cell--id">0093213</td>
+                <td class="inventory-cell inventory-cell--name">LAPTOP</td>
+                <td class="inventory-cell inventory-cell--description">MSI
+                  Titan-18-HX-Dragon-Edition-Norse-Myth-A2XWX</td>
+                <td class="inventory-cell inventory-cell--quantity">10 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="001">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="001">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="002">
+                <td class="inventory-cell inventory-cell--id">0213312</td>
+                <td class="inventory-cell inventory-cell--name">FLASH DRIVE</td>
+                <td class="inventory-cell inventory-cell--description">SANDISK 256GB ULTRA FLAIR USB3.0
+                  (SDCZ73-256G-G46) Flash Drive (Black)</td>
+                <td class="inventory-cell inventory-cell--quantity">5 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="002">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="002">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="003">
+                <td class="inventory-cell inventory-cell--id">321312</td>
+                <td class="inventory-cell inventory-cell--name">LAPTOP</td>
+                <td class="inventory-cell inventory-cell--description">ASUS TUF FX505</td>
+                <td class="inventory-cell inventory-cell--quantity">3 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="003">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="003">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="004">
+                <td class="inventory-cell inventory-cell--id">421456</td>
+                <td class="inventory-cell inventory-cell--name">MONITOR</td>
+                <td class="inventory-cell inventory-cell--description">Dell UltraSharp 27" 4K USB-C
+                  Monitor (U2720Q)</td>
+                <td class="inventory-cell inventory-cell--quantity">8 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="004">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="004">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="005">
+                <td class="inventory-cell inventory-cell--id">531789</td>
+                <td class="inventory-cell inventory-cell--name">KEYBOARD</td>
+                <td class="inventory-cell inventory-cell--description">Logitech MX Keys Wireless
+                  Keyboard</td>
+                <td class="inventory-cell inventory-cell--quantity">15 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="005">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="005">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="006">
+                <td class="inventory-cell inventory-cell--id">641892</td>
+                <td class="inventory-cell inventory-cell--name">MOUSE</td>
+                <td class="inventory-cell inventory-cell--description">Logitech MX Master 3 Wireless
+                  Mouse</td>
+                <td class="inventory-cell inventory-cell--quantity">12 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="006">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="006">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="007">
+                <td class="inventory-cell inventory-cell--id">752013</td>
+                <td class="inventory-cell inventory-cell--name">PRINTER</td>
+                <td class="inventory-cell inventory-cell--description">HP LaserJet Pro M404n Monochrome
+                  Printer</td>
+                <td class="inventory-cell inventory-cell--quantity">4 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="007">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="007">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="008">
+                <td class="inventory-cell inventory-cell--id">862134</td>
+                <td class="inventory-cell inventory-cell--name">WEBCAM</td>
+                <td class="inventory-cell inventory-cell--description">Logitech C920 HD Pro Webcam</td>
+                <td class="inventory-cell inventory-cell--quantity">20 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="008">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="008">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="009">
+                <td class="inventory-cell inventory-cell--id">972245</td>
+                <td class="inventory-cell inventory-cell--name">HEADSET</td>
+                <td class="inventory-cell inventory-cell--description">HyperX Cloud II Gaming Headset
+                </td>
+                <td class="inventory-cell inventory-cell--quantity">18 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="009">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="009">Delete</button>
+                </td>
+              </tr>
+              <tr class="inventory-row" data-item-id="010">
+                <td class="inventory-cell inventory-cell--id">082356</td>
+                <td class="inventory-cell inventory-cell--name">EXTERNAL HDD</td>
+                <td class="inventory-cell inventory-cell--description">Seagate Backup Plus 2TB External
+                  Hard Drive</td>
+                <td class="inventory-cell inventory-cell--quantity">7 pcs</td>
+                <td class="inventory-cell inventory-cell--actions">
+                  <button class="button button--action js-update-item" data-item-id="010">Update</button>
+                  <button class="button button--danger js-delete-item" data-item-id="010">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="inventory-empty-state" id="inventory-no-results" style="display: none;">
+        <p class="empty-state-message">No items found matching your search.</p>
+      </div>
+    </section>
+  </div>
+  <!-- End Main Content -->
+
+  <script>
+    // Modal functionality
+    const addItemTrigger = document.getElementById('js-add-items-trigger');
+    const addItemModal = document.getElementById('add-item-modal');
+    const addItemCancel = document.getElementById('js-add-item-cancel');
+    const addItemForm = document.getElementById('add-item-form');
+
+    const updateItemModal = document.getElementById('update-item-modal');
+    const updateItemCancel = document.getElementById('js-update-item-cancel');
+    const updateItemForm = document.getElementById('update-item-form');
+
+    // Open Add Item Modal
+    addItemTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      addItemModal.classList.add('active');
+    });
+
+    // Close Add Item Modal
+    addItemCancel.addEventListener('click', () => {
+      addItemModal.classList.remove('active');
+      addItemForm.reset();
+    });
+
+    // Close modal on overlay click
+    addItemModal.addEventListener('click', (e) => {
+      if (e.target === addItemModal) {
+        addItemModal.classList.remove('active');
+        addItemForm.reset();
+      }
+    });
+
+    // Add Item Form Submission
+    addItemForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('add-item-name').value;
+      const description = document.getElementById('add-item-description').value;
+      const quantity = document.getElementById('add-item-quantity').value;
+
+      console.log('Adding item:', { name, description, quantity });
+      alert(`Item "${name}" added successfully!`);
+
+      addItemModal.classList.remove('active');
+      addItemForm.reset();
+    });
+
+    // Update Item Modal
+    const updateButtons = document.querySelectorAll('.js-update-item');
+    updateButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const itemId = button.getAttribute('data-item-id');
+        const row = button.closest('.inventory-row');
+        const id = row.querySelector('.inventory-cell--id').textContent;
+        const name = row.querySelector('.inventory-cell--name').textContent;
+        const description = row.querySelector('.inventory-cell--description').textContent;
+        const quantity = row.querySelector('.inventory-cell--quantity').textContent.replace(' pcs', '');
+
+        document.getElementById('update-item-id').value = id;
+        document.getElementById('update-item-name').value = name;
+        document.getElementById('update-item-description').value = description;
+        document.getElementById('update-item-quantity').value = quantity;
+
+        updateItemModal.classList.add('active');
+      });
+    });
+
+    // Close Update Modal
+    updateItemCancel.addEventListener('click', () => {
+      updateItemModal.classList.remove('active');
+      updateItemForm.reset();
+    });
+
+    updateItemModal.addEventListener('click', (e) => {
+      if (e.target === updateItemModal) {
+        updateItemModal.classList.remove('active');
+        updateItemForm.reset();
+      }
+    });
+
+    // Update Item Form Submission
+    updateItemForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('update-item-name').value;
+
+      alert(`Item "${name}" updated successfully!`);
+
+      updateItemModal.classList.remove('active');
+      updateItemForm.reset();
+    });
+
+    // Delete functionality
+    const deleteButtons = document.querySelectorAll('.js-delete-item');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const row = button.closest('.inventory-row');
+        const name = row.querySelector('.inventory-cell--name').textContent;
+
+        if (confirm(`Are you sure you want to delete "${name}"?`)) {
+          row.style.animation = 'slideOut 0.3s ease-out forwards';
+          setTimeout(() => {
+            row.remove();
+          }, 300);
+        }
+      });
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('inventory-search');
+    const tableBody = document.querySelector('.inventory-table-body');
+    const noResults = document.getElementById('inventory-no-results');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const rows = tableBody.querySelectorAll('.inventory-row');
+      let visibleRows = 0;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+          row.style.display = '';
+          visibleRows++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      noResults.style.display = visibleRows === 0 ? 'block' : 'none';
+    });
+
+    // Logout confirmation
+    const logoutBtn = document.getElementById('js-logout-trigger');
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (confirm('Are you sure you want to logout?')) {
+        alert('Logging out...');
+        // window.location.href = 'logout.php';
+      }
+    });
+
+    // Sidebar mobile toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+
+    mobileMenuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('mobile-open');
+    });
+
+    // Close sidebar when clicking on a link (mobile)
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu-link');
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('mobile-open');
+        }
+      });
+    });
+
+    // Sidebar add items trigger
+    const sidebarAddItems = document.getElementById('sidebar-add-items');
+    sidebarAddItems.addEventListener('click', (e) => {
+      e.preventDefault();
+      addItemModal.classList.add('active');
+      if (window.innerWidth <= 768) {
+        sidebar.classList.remove('mobile-open');
+      }
+    });
+
+    // Active link highlighting
+    const allSidebarLinks = document.querySelectorAll('.sidebar-menu-link');
+    allSidebarLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (!link.id || link.id !== 'sidebar-add-items') {
+          allSidebarLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Add slideOut animation
+    const style = document.createElement('style');
+    style.textContent = `
+            @keyframes slideOut {
+                to {
+                    opacity: 0;
+                    transform: translateX(-100%);
+                }
+            }
+        `;
+    document.head.appendChild(style);
+  </script>
 </body>
 
 </html>

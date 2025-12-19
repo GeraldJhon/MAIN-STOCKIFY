@@ -69,13 +69,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assests/css/registers-style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../assests/icons/Inventory.svg" type="image/x-icon">
 </head>
 
 <body>
     <div class="register-container">
         <div class="header">
-            <h1 class="logo">CITEMIS</h1>
+            <h1 class="logo">STOCKIFY</h1>
             <p class="subtitle">Inventory Management System</p>
         </div>
 

@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update Form</title>
-  <link rel="stylesheet" href="../assests/css/fanalize-style.css">
+  <link rel="stylesheet" href="../assests/css/update-style.css">
+  <link rel="shortcut icon" href="../assests/icons/Update.svg" type="image/x-icon">
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -29,7 +30,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="../pages/dashboard.php" class="sidebar-menu-link" id="sidebar-add-items">
+                        <a href="../pages/dashboard.php" class="sidebar-menu-link">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Add.svg" alt="Add Item Icon"></span>
                             <span>Add Items</span>
                         </a>
@@ -67,7 +68,7 @@
                 <h3 class="sidebar-section-title">Management</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link">
+                        <a href="../pages/admin.php" class="sidebar-menu-link">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Users.svg" alt="Iser Icon"> </span>
                             <span>Users</span>
                         </a>
@@ -311,7 +312,6 @@
                                 <td class="inventory-cell inventory-cell--actions">
                                     <button class="button button--action js-update-item"
                                         data-item-id="010">Update</button>
-                                   
                                 </td>
                             </tr>
                         </tbody>
@@ -324,5 +324,6 @@
             </div>
         </section>
     </div>
+    <footer><script src="../assests/js/main.js"></script></footer>
 </body>
 </html>

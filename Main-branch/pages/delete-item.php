@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delete Table</title>
-  <link rel="stylesheet" href="../assests/css/fanalize-style.css">k
+  <title>Delete Form</title>
+  <link rel="stylesheet" href="../assests/css/delete-style.css">
+  <link rel="shortcut icon" href="../assests/icons/Delete.svg" type="image/x-icon">
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -67,7 +68,7 @@
                 <h3 class="sidebar-section-title">Management</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link">
+                        <a href="../pages/admin.php" class="sidebar-menu-link">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Users.svg" alt="User Icon"></span>
                             <span>Users</span>
                         </a>
@@ -140,43 +141,7 @@
             </div>
         </section>
 
-        <!-- Update Item Modal -->
-        <section id="update-item-modal" class="modal-overlay" aria-hidden="true">
-            <div class="modal-container modal-container--update-item">
-                <h2 class="modal-title">Update Item Details</h2>
-                <form id="update-item-form" class="item-form">
-                    <div class="form-group">
-                        <label for="update-item-id" class="form-label">ID:</label>
-                        <input type="text" id="update-item-id" class="form-input" placeholder="#:" readonly />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="update-item-name" class="form-label">Item Name:</label>
-                        <input type="text" id="update-item-name" class="form-input" placeholder="Update item name:" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="update-item-description" class="form-label">Description:</label>
-                        <input type="text" id="update-item-description" class="form-input"
-                            placeholder="Update the description:" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="update-item-quantity" class="form-label">Qty:</label>
-                        <input type="number" id="update-item-quantity" class="form-input"
-                            placeholder="Update item quantity:" />
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="button button--primary" id="js-update-item-submit">Update</button>
-                        <button type="button" class="button button--secondary"
-                            id="js-update-item-cancel">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- Inventory Table Section -->
+  <!-- Inventory Table Section -->
         <section class="inventory-section">
             <div class="inventory-header">
                 <h1 class="inventory-title">INVENTORY ITEMS</h1>
@@ -314,5 +279,6 @@
             </div>
         </section>
     </div>
+    <footer><script src="../assests/js/main.js"></script></footer>
 </body>
 </html>

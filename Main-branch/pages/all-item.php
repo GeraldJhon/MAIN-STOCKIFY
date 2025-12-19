@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventory</title>
   <link rel="stylesheet" href="../assests/css/dashboard-style.css"> 
+  <link rel="shortcut icon" href="../assests/icons/Inventory.svg" type="image/x-icon">
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -29,7 +30,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link" id="sidebar-add-items">
+                        <a href="../pages/dashboard.php" class="sidebar-menu-link">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Add.svg" alt="Add Icon"></span>
                             <span>Add Items</span>
                         </a>
@@ -67,7 +68,7 @@
                 <h3 class="sidebar-section-title">Management</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link">
+                        <a href="../pages/admin.php" class="sidebar-menu-link">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Users.svg" alt="User Icon"></span>
                             <span>Users</span>
                         </a>
@@ -280,5 +281,6 @@
             </div>
         </section>
     </div>
+    <footer><script src="../assests/js/dashboard.js"></script></footer>
 </body>
 </html>

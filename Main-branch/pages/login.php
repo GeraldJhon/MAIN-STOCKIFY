@@ -61,19 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
+  <title>Stockify</title>
   <link rel="stylesheet" href="../assests/css/login-style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Cinzel+Decorative:wght@400;700;900&family=Graduate&family=Jersey+10&display=swap"
-    rel="stylesheet" />
+  <link rel="shortcut icon" href="../assests/icons/Inventory.svg" type="image/x-icon">
 </head>
 
 <body>
   <div class="login-container">
     <div class="header">
-      <h1 class="logo">CITEMIS</h1>
+      <h1 class="logo">STOCKIFY</h1>
       <p class="subtitle">Inventory Management System</p>
     </div>
 

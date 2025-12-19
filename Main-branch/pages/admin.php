@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../assests/css/dashboard-style.css"> 
-  <link rel="shortcut icon" href="../assests/icons/Dashboard.svg" type="image/x-icon">
+  <title>All Users</title>
+  <link rel="stylesheet" href="../assests/css/users-style.css"> 
+  <link rel="shortcut icon" href="../assests/icons/Users.svg" type="image/x-icon">
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -24,15 +24,15 @@
                 <h3 class="sidebar-section-title">Main Menu</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link active">
+                        <a href="../pages/dashboard.php" class="sidebar-menu-link active">
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Dashboard.svg" alt="Dashboard Icon"></span>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="#" class="sidebar-menu-link" id="sidebar-add-items">
+                        <a href="#" class="sidebar-menu-link" id="sidebar-add-user">  <!--I add features here-->
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Add.svg" alt="Add Icon"></span>
-                            <span>Add Items</span>
+                            <span>Add Users</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
@@ -107,11 +107,11 @@
 
         <!-- Dashboard Header -->
         <header class="dashboard-header">
-            <h1 class="dashboard-title">Welcome To Stockify!</h1>
-            <h2 class="dashboard-subtitle">Manage your inventory efficiently with Stockify dashboard</h2>
+            <h1 class="dashboard-title">Welcome Users!</h1>
+            <h2 class="dashboard-subtitle">Free to explore our Stockify Inventory Management</h2>
         </header>
 
-        <!-- Add Item Modal -->
+        <!-- Add Item Modal  REVISION OF THIS TO ADD A NEW ADMIN OR USERS -->
         <section id="add-item-modal" class="modal-overlay" aria-hidden="true">
             <div class="modal-container modal-container--add-item">
                 <h2 class="modal-title">What items do you want to add?</h2>
@@ -180,8 +180,8 @@
         <!-- Inventory Table Section -->
         <section class="inventory-section">
             <div class="inventory-header">
-                <h1 class="inventory-title">INVENTORY ITEMS</h1>
-                <input type="text" id="inventory-search" class="search-input" placeholder="Search Items..." />
+                <h1 class="inventory-title">USERS</h1>
+                <input type="text" id="inventory-search" class="search-input" placeholder="Search..." />
             </div>
 
             <div class="table-wrapper">
@@ -189,91 +189,33 @@
                     <table class="inventory-table">
                         <thead class="inventory-table-head">
                             <tr>
-                                <th>MIS#</th>
-                                <th>ITEM NAME</th>
-                                <th>DESCRIPTION</th>
-                                <th>ITEM QTY</th>
+                                <th>FULL NAME:</th>
+                                <th>EMAIL</th>
+                                <th>POSITION</th>
                             </tr>
                         </thead>
                         <tbody class="inventory-table-body">
                             <tr class="inventory-row" data-item-id="001">
-                                <td class="inventory-cell inventory-cell--id">0093213</td>
-                                <td class="inventory-cell inventory-cell--name">LAPTOP</td>
-                                <td class="inventory-cell inventory-cell--description">MSI
-                                    Titan-18-HX-Dragon-Edition-Norse-Myth-A2XWX</td>
-                                <td class="inventory-cell inventory-cell--quantity">10 pcs</td>
+                                <td class="inventory-cell inventory-cell--id">Gerald Jhon G. Necesario</td>
+                                <td class="inventory-cell inventory-cell--name">Gerald.necesario6@gmail.com</td>
+                                <td class="inventory-cell inventory-cell--description">ADMIN</td>
                                 </td>
                             </tr>
                             <tr class="inventory-row" data-item-id="002">
-                                <td class="inventory-cell inventory-cell--id">0213312</td>
-                                <td class="inventory-cell inventory-cell--name">FLASH DRIVE</td>
-                                <td class="inventory-cell inventory-cell--description">SANDISK 256GB ULTRA FLAIR USB3.0
-                                    (SDCZ73-256G-G46) Flash Drive (Black)</td>
-                                <td class="inventory-cell inventory-cell--quantity">5 pcs</td>
-                    
-                                  
-                                
+                                <td class="inventory-cell inventory-cell--id">Dexter Paul Tingal</td>
+                                <td class="inventory-cell inventory-cell--name">Dexter@gmail.com</td>
+                                <td class="inventory-cell inventory-cell--description">ADMIN</td>
                             </tr>
                             <tr class="inventory-row" data-item-id="003">
-                                <td class="inventory-cell inventory-cell--id">321312</td>
-                                <td class="inventory-cell inventory-cell--name">LAPTOP</td>
-                                <td class="inventory-cell inventory-cell--description">ASUS TUF FX505</td>
-                                <td class="inventory-cell inventory-cell--quantity">3 pcs</td>
-                               
+                                <td class="inventory-cell inventory-cell--id">John Paulo Donghil</td>
+                                <td class="inventory-cell inventory-cell--name">John-Paulo@gmail.com</td>
+                                <td class="inventory-cell inventory-cell--description">USER</td>  
                             </tr>
                             <tr class="inventory-row" data-item-id="004">
-                                <td class="inventory-cell inventory-cell--id">421456</td>
-                                <td class="inventory-cell inventory-cell--name">MONITOR</td>
-                                <td class="inventory-cell inventory-cell--description">Dell UltraSharp 27" 4K USB-C
-                                    Monitor (U2720Q)</td>
-                                <td class="inventory-cell inventory-cell--quantity">8 pcs</td>
-                            </tr>
-                            <tr class="inventory-row" data-item-id="005">
-                                <td class="inventory-cell inventory-cell--id">531789</td>
-                                <td class="inventory-cell inventory-cell--name">KEYBOARD</td>
-                                <td class="inventory-cell inventory-cell--description">Logitech MX Keys Wireless
-                                    Keyboard</td>
-                                <td class="inventory-cell inventory-cell--quantity">15 pcs</td>
-                            </tr>
-                            <tr class="inventory-row" data-item-id="006">
-                                <td class="inventory-cell inventory-cell--id">641892</td>
-                                <td class="inventory-cell inventory-cell--name">MOUSE</td>
-                                <td class="inventory-cell inventory-cell--description">Logitech MX Master 3 Wireless
-                                    Mouse</td>
-                                <td class="inventory-cell inventory-cell--quantity">12 pcs</td>
-                                
-                            </tr>
-                            <tr class="inventory-row" data-item-id="007">
-                                <td class="inventory-cell inventory-cell--id">752013</td>
-                                <td class="inventory-cell inventory-cell--name">PRINTER</td>
-                                <td class="inventory-cell inventory-cell--description">HP LaserJet Pro M404n Monochrome
-                                    Printer</td>
-                                <td class="inventory-cell inventory-cell--quantity">4 pcs</td>
-                               
-                            </tr>
-                            <tr class="inventory-row" data-item-id="008">
-                                <td class="inventory-cell inventory-cell--id">862134</td>
-                                <td class="inventory-cell inventory-cell--name">WEBCAM</td>
-                                <td class="inventory-cell inventory-cell--description">Logitech C920 HD Pro Webcam</td>
-                                <td class="inventory-cell inventory-cell--quantity">20 pcs</td>
-                               
-                            </tr>
-                            <tr class="inventory-row" data-item-id="009">
-                                <td class="inventory-cell inventory-cell--id">972245</td>
-                                <td class="inventory-cell inventory-cell--name">HEADSET</td>
-                                <td class="inventory-cell inventory-cell--description">HyperX Cloud II Gaming Headset
-                                </td>
-                                <td class="inventory-cell inventory-cell--quantity">18 pcs</td>
-                               
-                            </tr>
-                            <tr class="inventory-row" data-item-id="010">
-                                <td class="inventory-cell inventory-cell--id">082356</td>
-                                <td class="inventory-cell inventory-cell--name">EXTERNAL HDD</td>
-                                <td class="inventory-cell inventory-cell--description">Seagate Backup Plus 2TB External
-                                    Hard Drive</td>
-                                <td class="inventory-cell inventory-cell--quantity">7 pcs</td>
-                                
-                            </tr>
+                                <td class="inventory-cell inventory-cell--id">Matthew Villaranda</td>
+                                <td class="inventory-cell inventory-cell--name">Matthew@gmail.com</td>
+                                <td class="inventory-cell inventory-cell--description">USER</td>
+                            </tr>          
                         </tbody>
                     </table>
                 </div>
@@ -284,6 +226,6 @@
             </div>
         </section>
     </div>
-    <footer><script src="../assests/js/main.js"></script></footer>
+    <footer><script src="../assests/js/dashboard.js"></script></footer>
 </body>
 </html>

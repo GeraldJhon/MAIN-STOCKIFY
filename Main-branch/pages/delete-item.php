@@ -147,14 +147,23 @@ $result = mysqli_query($connection, $sql);
                     </div>
 
                     <div class="form-actions">
+<<<<<<< HEAD
                         <button type="submit" class="button button--danger" style="flex: 1;">Yes, Delete Product</button>
                         <button type="button" class="button button--secondary" id="js-delete-cancel" style="flex: 1;">Cancel</button>
+=======
+                        <button type="submit" class="button button--primary" id="js-add-item-submit">Add</button>
+                        <button type="button" class="button button--secondary" id="js-add-item-cancel">Cancel</button>
+>>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
                     </div>
                 </form>
             </div>
         </section>
 
+<<<<<<< HEAD
         <!-- Inventory Table Section -->
+=======
+  <!-- Inventory Table Section -->
+>>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
         <section class="inventory-section">
             <div class="inventory-header">
                 <h1 class="inventory-title">INVENTORY ITEMS</h1>
@@ -210,6 +219,7 @@ $result = mysqli_query($connection, $sql);
             </div>
         </section>
     </div>
+<<<<<<< HEAD
 
     <script>
         // Mobile menu toggle
@@ -273,6 +283,9 @@ $result = mysqli_query($connection, $sql);
             document.getElementById('inventory-no-results').style.display = visibleCount === 0 ? 'block' : 'none';
         });
     </script>
+=======
+    <footer><script src="../assests/js/main.js"></script></footer>
+>>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
 </body>
 </html>
 

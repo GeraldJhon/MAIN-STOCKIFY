@@ -8,18 +8,10 @@ $result = mysqli_query($connection, $sql);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../assests/css/dashboard-style.css"> 
-=======
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../assests/css/dashboard-style.css"> 
-  <link rel="shortcut icon" href="../assests/icons/Dashboard.svg" type="image/x-icon">
->>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
 </head>
 <body>
     <!-- Mobile Menu Toggle -->
@@ -82,11 +74,7 @@ $result = mysqli_query($connection, $sql);
                 <h3 class="sidebar-section-title">Management</h3>
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
-<<<<<<< HEAD
                         <a href="../pages/users.php" class="sidebar-menu-link">
-=======
-                        <a href="../pages/admin.php" class="sidebar-menu-link">
->>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
                             <span class="sidebar-menu-icon"><img src="../assests/icons/Users.svg" alt="User Icon"></span>
                             <span>Users</span>
                         </a>
@@ -196,11 +184,7 @@ $result = mysqli_query($connection, $sql);
                 <p class="empty-state-message">No items found matching your search.</p>
             </div>
         </section>
-<<<<<<< HEAD
     </div>  
-=======
-    </div>
->>>>>>> 3f45ab3d633f30d32fd61ea72af88ebac2bfb238
     <footer><script src="../assests/js/main.js"></script></footer>
 </body>
 </html>

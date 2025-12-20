@@ -1,3 +1,8 @@
+<?php
+require_once('../Projects/DBConnection/product.php');
+
+// Your existing delete code here
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

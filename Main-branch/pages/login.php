@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include("../DBConnection/database.php"); // ✅ Same as above
+include("../DBConnection/database.php"); 
 
 // Debug: Check if connection exists
 if (!isset($connection)) {

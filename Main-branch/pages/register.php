@@ -1,12 +1,10 @@
 <?php
-session_start(); // Add this at the very top
+session_start();
 include("../DBConnection/database.php");
-
 // Debug: Check if connection exists
 if (!isset($connection)) {
     die("Error: Database connection not established. Check dbconnection.php file.");
 }
-
 $message = "";
 
 // when form is submitted
@@ -34,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_result->num_rows > 0) {
             $message = "Email already registered!";
         } else {
-            // Hash the password
+       
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
             // Note: You're using $department but it's not in your form
